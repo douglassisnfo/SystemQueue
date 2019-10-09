@@ -1,7 +1,57 @@
 version: '3'
 
 services: 
-
+ #database---------------------------------------------------database  
+   database:
+    image: mysql
+    container_name: mysql-database
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+        MYSQL_ROOT_PASSWORD: ruth
+    ports:
+      - "3389:3388"
+      - "3307:3306"
+    volumes:
+    #to linux
+    # - ../../log/activemq:/opt/activemq/conf
+    #to windows
+      #- C:/Docker/composers/SystemQueue/volumes/activeMq/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/mysql/data:/var/lib/mysql 
+    networks:
+      - production-network
+      
+ #broker---------------------------------------------------broker     
+   broker:
+    image: webcenter/activemq
+    container_name: activeMq-broker
+    environment:
+      - ACTIVEMQ_CONFIG_SCHEDULERENABLED:true
+      - ACTIVEMQ_CONFIG_NAME:activemq-server
+      - ACTIVEMQ_CONFIG_DEFAULTACCOUNT:false
+      - ACTIVEMQ_ADMIN_LOGIN:admin
+      - ACTIVEMQ_ADMIN_PASSWORD:admin
+      - ACTIVEMQ_USERS_user:senha
+      - ACTIVEMQ_GROUPS_writes:user
+      - ACTIVEMQ_GROUPS_reads:user
+      - ACTIVEMQ_CONFIG_TOPICS_topic1:topic1
+      - ACTIVEMQ_CONFIG_QUEUES_queue1:queue1
+      - ACTIVEMQ_CONFIG_MINMEMORY= "512"
+      - ACTIVEMQ_CONFIG_MAXMEMORY= "2048"
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "61613:61613" 
+    volumes:
+    #to linux
+    # - ../../log/activemq:/var/log/activemq
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/data:/data
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/log:/var/log/activemq
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/conf:/opt/activemq/conf
+    networks:
+      - production-network
+       
  #aplication-one---------------------------------------------------aplication-one        
    aplication-one:
     build:
