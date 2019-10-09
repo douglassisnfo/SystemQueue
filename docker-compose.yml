@@ -1,0 +1,130 @@
+version: '3'
+
+services: 
+
+ #aplication-one---------------------------------------------------aplication-one        
+   aplication-one:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-one
+    restart: always 
+    environment:
+        SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8081:8080"
+    # - "443:443"
+      - "9991:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-one/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+
+
+ #aplication-one---------------------------------------------------aplication-one
+   aplication-two:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-two
+    restart: always
+    environment:
+        SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8082:8080"
+    # - "443:443"
+      - "9992:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-two/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+  
+
+ #aplication-three---------------------------------------------------aplication-three        
+   aplication-three:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-three
+    restart: always
+    environment:
+        SPRING_PROFILES_ACTIVE: dev
+    ports:
+      - "8083:8080"
+    # - "443:443"
+      - "9993:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+
+    
+ #aplication-four---------------------------------------------------aplication-four
+   aplication-four:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-four
+    restart: always
+    environment:
+        SPRING_PROFILES_ACTIVE: dev    
+    ports:
+      - "8084:8080"
+    # - "443:443"
+      - "9994:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+     
+      
+ #server-web---------------------------------------------------server-web   
+   server-web:
+    image: nginx
+    container_name: nginx-server
+    restart: always
+    ports:
+      - "8888:80"
+    volumes:
+    #to linux
+    # - ../../log/activemq:/opt/activemq/conf
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/nginx/log:/var/log/nginx/
+      - C:/Docker/composers/SystemQueue/volumes/nginx/conf:/etc/nginx/ 
+      - C:/Docker/composers/SystemQueue/volumes/nginx/html:/usr/share/nginx/html 
+    networks:
+      - production-network   
+    depends_on:
+      - aplication-one
+      - aplication-two
+      - aplication-three
+      - aplication-four
+      
+#networks---------------------------------------------------networks
+networks: 
+    production-network:
+      driver: bridge

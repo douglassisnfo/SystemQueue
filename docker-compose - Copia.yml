@@ -1,0 +1,181 @@
+version: '3'
+
+services: 
+
+ #database---------------------------------------------------database  
+   database:
+    image: mysql
+    container_name: mysql-database
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+        MYSQL_ROOT_PASSWORD: ruth
+    ports:
+      - "3389:3388"
+      - "3307:3306"
+    volumes:
+    #to linux
+    # - ../../log/activemq:/opt/activemq/conf
+    #to windows
+      #- C:/Docker/composers/SystemQueue/volumes/activeMq/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/mysql/data:/var/lib/mysql 
+    networks:
+      - production-network
+      
+  
+ #broker---------------------------------------------------broker     
+   broker:
+    image: webcenter/activemq
+    container_name: activeMq-broker
+    environment:
+      - ACTIVEMQ_CONFIG_SCHEDULERENABLED:true
+      - ACTIVEMQ_CONFIG_NAME:activemq-server
+      - ACTIVEMQ_CONFIG_DEFAULTACCOUNT:false
+      - ACTIVEMQ_ADMIN_LOGIN:admin
+      - ACTIVEMQ_ADMIN_PASSWORD:admin
+      - ACTIVEMQ_USERS_user:senha
+      - ACTIVEMQ_GROUPS_writes:user
+      - ACTIVEMQ_GROUPS_reads:user
+      - ACTIVEMQ_CONFIG_TOPICS_topic1:topic1
+      - ACTIVEMQ_CONFIG_QUEUES_queue1:queue1
+      - ACTIVEMQ_CONFIG_MINMEMORY= "512"
+      - ACTIVEMQ_CONFIG_MAXMEMORY= "2048"
+    ports:
+      - "8161:8161"
+      - "61616:61616"
+      - "61613:61613" 
+    volumes:
+    #to linux
+    # - ../../log/activemq:/var/log/activemq
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/data:/data
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/log:/var/log/activemq
+      - C:/Docker/composers/SystemQueue/volumes/activeMq/conf:/opt/activemq/conf
+    networks:
+      - production-network
+   
+ #aplication-one---------------------------------------------------aplication-one        
+   aplication-one:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-one
+    restart: always 
+    ports:
+      - "8081:8080"
+    # - "443:443"
+      - "9991:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-one/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+    depends_on:
+      - database
+      - broker      
+    
+ #aplication-one---------------------------------------------------aplication-one
+   aplication-two:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-two
+    restart: always 
+    ports:
+      - "8082:8080"
+    # - "443:443"
+      - "9992:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-two/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+    depends_on:
+      - database
+      - broker  
+
+ #aplication-three---------------------------------------------------aplication-three        
+   aplication-three:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-three
+    restart: always 
+    ports:
+      - "8083:8080"
+    # - "443:443"
+      - "9993:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+    depends_on:
+      - database
+      - broker      
+    
+ #aplication-four---------------------------------------------------aplication-four
+   aplication-four:
+    build:
+      dockerfile: ./wildfly.dockerfile
+      context: .
+    image: wildfly
+    container_name: wildfly-aplication-four
+    restart: always 
+    ports:
+      - "8084:8080"
+    # - "443:443"
+      - "9994:9990"
+    volumes:
+    #to linux
+    # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
+    # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+    networks:
+      - production-network
+    depends_on:
+      - database
+      - broker  
+      
+ #server-web---------------------------------------------------server-web   
+   server-web:
+    image: nginx
+    container_name: nginx-server
+    ports:
+      - "88:80"
+    volumes:
+    #to linux
+    # - ../../log/activemq:/opt/activemq/conf
+    #to windows
+      - C:/Docker/composers/SystemQueue/volumes/nginx/log:/var/log/nginx/
+      - C:/Docker/composers/SystemQueue/volumes/nginx/conf:/etc/nginx/ 
+      - C:/Docker/composers/SystemQueue/volumes/nginx/html:/usr/share/nginx/html 
+    networks:
+      - production-network   
+    depends_on:
+      - aplication-one
+      - aplication-two
+      - aplication-three
+      - aplication-four
+      
+#networks---------------------------------------------------networks
+networks: 
+    production-network:
+      driver: bridge
