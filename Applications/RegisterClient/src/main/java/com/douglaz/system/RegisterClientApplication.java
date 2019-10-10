@@ -12,5 +12,4 @@ public class RegisterClientApplication extends SpringBootServletInitializer{
 	public static void main(String[] args) {
 		SpringApplication.run(RegisterClientApplication.class, args);
 	}
-
 }

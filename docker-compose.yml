@@ -111,7 +111,7 @@ services:
     container_name: wildfly-aplication-three
     restart: always
     environment:
-        SPRING_PROFILES_ACTIVE: dev
+        SPRING_PROFILES_ACTIVE: homolog
     ports:
       - "8083:8080"
     # - "443:443"
@@ -136,7 +136,7 @@ services:
     container_name: wildfly-aplication-four
     restart: always
     environment:
-        SPRING_PROFILES_ACTIVE: dev    
+        SPRING_PROFILES_ACTIVE: homolog    
     ports:
       - "8084:8080"
     # - "443:443"
