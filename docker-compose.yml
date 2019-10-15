@@ -16,8 +16,8 @@ services:
     #to linux
     # - ../../log/activemq:/opt/activemq/conf
     #to windows
-      #- C:/Docker/composers/SystemQueue/volumes/activeMq/log:/opt/jboss/wildfly/standalone/log/
-      - C:/Docker/composers/SystemQueue/volumes/mysql/data:/var/lib/mysql 
+      #- C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/activeMq/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/mysql/data:/var/lib/mysql 
     networks:
       - production-network
       
@@ -46,9 +46,9 @@ services:
     #to linux
     # - ../../log/activemq:/var/log/activemq
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/activeMq/data:/data
-      - C:/Docker/composers/SystemQueue/volumes/activeMq/log:/var/log/activemq
-      - C:/Docker/composers/SystemQueue/volumes/activeMq/conf:/opt/activemq/conf
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/activeMq/data:/data
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/activeMq/log:/var/log/activemq
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/activeMq/conf:/opt/activemq/conf
     networks:
       - production-network
        
@@ -71,8 +71,8 @@ services:
     # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
     # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-one/deployments:/opt/jboss/wildfly/standalone/deployments/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/standalone-one/deployments:/opt/jboss/wildfly/standalone/deployments/
     networks:
       - production-network
 
@@ -96,8 +96,8 @@ services:
     # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
     # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-two/deployments:/opt/jboss/wildfly/standalone/deployments/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/log:/opt/jboss/wildfly/standalone/log/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/standalone-two/deployments:/opt/jboss/wildfly/standalone/deployments/
     networks:
       - production-network
   
@@ -121,8 +121,8 @@ services:
     # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
     # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
     networks:
       - production-network
 
@@ -146,8 +146,8 @@ services:
     # - ../../log/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/log/
     # - ../../deployments/wildfly-facilpayerp:/opt/jboss/wildfly/standalone/deployments/
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
-      - C:/Docker/composers/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/log-homolog:/opt/jboss/wildfly/standalone/log/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/wildfly/standalone-homolog/deployments:/opt/jboss/wildfly/standalone/deployments/
     networks:
       - production-network
      
@@ -163,9 +163,9 @@ services:
     #to linux
     # - ../../log/activemq:/opt/activemq/conf
     #to windows
-      - C:/Docker/composers/SystemQueue/volumes/nginx/log:/var/log/nginx/
-      - C:/Docker/composers/SystemQueue/volumes/nginx/conf:/etc/nginx/ 
-      - C:/Docker/composers/SystemQueue/volumes/nginx/html:/usr/share/nginx/html 
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/nginx/log:/var/log/nginx/
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/nginx/conf:/etc/nginx/ 
+      - C:/Users/douglas.marques/Documents/GitHub/SystemQueue/volumes/nginx/html:/usr/share/nginx/html 
     networks:
       - production-network   
     depends_on:

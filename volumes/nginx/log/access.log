@@ -1,0 +1,5 @@
+172.19.0.1 - - [14/Oct/2019:21:14:26 +0000] "GET / HTTP/1.1" 200 1504 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" "-"
+172.19.0.1 - - [14/Oct/2019:21:14:26 +0000] "GET /wildfly.css HTTP/1.1" 200 633 "http://localhost:8888/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" "-"
+172.19.0.1 - - [14/Oct/2019:21:14:26 +0000] "GET /jbosscommunity_logo_hori_white.png HTTP/1.1" 200 7215 "http://localhost:8888/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" "-"
+172.19.0.1 - - [14/Oct/2019:21:14:26 +0000] "GET /wildfly_logo.png HTTP/1.1" 200 21247 "http://localhost:8888/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" "-"
+172.19.0.1 - - [14/Oct/2019:21:14:26 +0000] "GET /bkg.gif HTTP/1.1" 200 51660 "http://localhost:8888/wildfly.css" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36" "-"
