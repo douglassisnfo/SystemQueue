@@ -4,10 +4,13 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -16,22 +19,38 @@ import com.douglaz.system.model.enums.Status;
 
 @Entity
 public class Client {
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid2")
 	@GenericGenerator(name = "uuid2", strategy = "uuid2")
 	@Column(columnDefinition = "BINARY(16)")
 	private UUID id;
-	
+
 	private String name;
-	
+
 	private String password;
-	
+
 	private String email;
+
 	
-	@OneToMany(mappedBy="client")
+	@OneToMany( cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name = "clientId")
 	private List<Address> address;
 	
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+
+	private Status status;
+
+	private LocalDate register;
+
+	private LocalDate lastUpdate;
+
 	public UUID getId() {
 		return id;
 	}
@@ -64,14 +83,6 @@ public class Client {
 		this.email = email;
 	}
 
-	public List<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
-
 	public Status getStatus() {
 		return status;
 	}
@@ -96,10 +107,4 @@ public class Client {
 		this.lastUpdate = lastUpdate;
 	}
 
-	private Status status;
-	
-	private LocalDate register;
-	
-	private LocalDate lastUpdate;
-	
 }

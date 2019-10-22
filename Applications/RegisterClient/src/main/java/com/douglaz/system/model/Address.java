@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.douglaz.system.model.enums.Status;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Address {
@@ -38,10 +40,19 @@ public class Address {
 	
 	private Status status;
 	
-	@ManyToOne
-	@JoinColumn(name="clienId", nullable=false)
-	private Client client;
-
+//	@JsonIgnore
+//    @ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="clientId", nullable=false)
+//	private Client client;
+//	
+//	public Client getClient() {
+//		return client;
+//	}
+//
+//	public void setClient(Client client) {
+//		this.client = client;
+//	}
+//	
 	public UUID getId() {
 		return id;
 	}
@@ -112,15 +123,5 @@ public class Address {
 
 	public void setStatus(Status status) {
 		this.status = status;
-	}
-
-	public Client getClient() {
-		return client;
-	}
-
-	public void setClient(Client client) {
-		this.client = client;
-	}
-	
-	
+	}	
 }
