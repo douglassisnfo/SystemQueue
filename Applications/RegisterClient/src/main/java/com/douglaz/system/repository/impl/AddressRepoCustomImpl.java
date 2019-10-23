@@ -34,7 +34,7 @@ public class AddressRepoCustomImpl implements AddressRepoCustom {
 	    CriteriaQuery<Address> criteriaQuery = builder.createQuery(Address.class);
 	     
 	    Root<Address> address = criteriaQuery.from(Address.class);
-	   // address.fetch("client");
+	    address.fetch("client");
 	    criteriaQuery.select(address);
 	 
 	    TypedQuery<Address> query = entityManager.createQuery(criteriaQuery);

@@ -56,6 +56,10 @@ public class Client {
 		this.id = id;
 	}
 
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public UUID getId() {
 		return id;
 	}
