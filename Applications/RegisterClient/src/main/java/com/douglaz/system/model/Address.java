@@ -39,20 +39,20 @@ public class Address {
 	private String complement;
 	
 	private Status status;
+		
+	//@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "idClient")
+	private Client client;
 	
-//	@JsonIgnore
-//    @ManyToOne(fetch = FetchType.LAZY)
-//	@JoinColumn(name="clientId", nullable=false)
-//	private Client client;
-//	
-//	public Client getClient() {
-//		return client;
-//	}
-//
-//	public void setClient(Client client) {
-//		this.client = client;
-//	}
-//	
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 	public UUID getId() {
 		return id;
 	}

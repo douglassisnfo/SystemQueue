@@ -28,11 +28,7 @@ public class AddressController {
 	
 	@GetMapping("/all")
 	public List<Address> get() throws UnknownHostException {
-		
 		logger.trace("Acesso aos dados  - address");
-		
 		return addressRepoCustom.listAll();
 	}
-
-
 }

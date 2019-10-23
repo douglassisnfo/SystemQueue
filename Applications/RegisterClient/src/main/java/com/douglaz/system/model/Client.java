@@ -33,23 +33,28 @@ public class Client {
 	private String email;
 
 	
-	@OneToMany( cascade = CascadeType.ALL, fetch=FetchType.EAGER)
-	@JoinColumn(name = "clientId")
-	private List<Address> address;
-	
-	public List<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
+//	@OneToMany( cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+//	@JoinColumn(name = "clientId")
+//	private List<Address> address;
+//	
+//	public List<Address> getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(List<Address> address) {
+//		this.address = address;
+//	}
 
 	private Status status;
 
 	private LocalDate register;
 
 	private LocalDate lastUpdate;
+
+	public Client(UUID id) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+	}
 
 	public UUID getId() {
 		return id;
