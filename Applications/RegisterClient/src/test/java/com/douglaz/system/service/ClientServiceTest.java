@@ -9,16 +9,25 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.douglaz.system.dto.AddressSave;
+import com.douglaz.system.dto.ClientSave;
 import com.douglaz.system.dto.ClientWithAddress;
 import com.douglaz.system.model.Address;
 import com.douglaz.system.model.Client;
@@ -43,6 +52,8 @@ public class ClientServiceTest {
 	private Client createClient() {
 		Client client = new Client(UUID.randomUUID());
 		client.setName("Douglas");
+		client.setPassword("1234567890");
+		client.setEmail("douglas@gmail.com");
 		return client;
 	}
 	
@@ -62,6 +73,32 @@ public class ClientServiceTest {
 		return Arrays.asList(createAddress(),createAddress());
 	}
 	
+	
+	private ClientSave createClientSave() {
+		ClientSave client = new ClientSave();
+		client.setName("Douglas");
+		client.setPassword("1234567890");
+		client.setEmail("douglas@gmail.com");
+		client.setAddress(Arrays.asList(createAddressSave()));
+		return client;
+	}
+	
+	private AddressSave createAddressSave() {
+		Random gerador = new Random();
+		
+		String city = (gerador.nextInt() == 0) ? 
+                "São Paulo" : "Suzano";
+		
+		AddressSave address = new AddressSave();
+		address.setZipcode("03320589");
+		address.setStreet("Rua Maria Jose");
+		address.setNeighborhood("Bairro da Saudade");
+		address.setState("São Paulo");	
+		address.setNumber(gerador.nextInt(1));
+		address.setCity(city);
+		return address;
+	}
+	
 	@Before
 	public void setUp() {
 		
@@ -78,5 +115,15 @@ public class ClientServiceTest {
 		assertThat(client.getAddress().size()).isEqualTo(2);
 		assertThat(client.getName()).isEqualTo(name);
 	}
+	
+	@Test
+	public void saveClientEmailAlreadyExists() {
+		 
+		Mockito.when(clientRepository.findByEmail(Mockito.any(String.class))).thenReturn(Optional.of(createClient()));
+		ResponseEntity responseEntity = clientService.saveClient(createClientSave());
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
+	} 
+	
+	
 
 }

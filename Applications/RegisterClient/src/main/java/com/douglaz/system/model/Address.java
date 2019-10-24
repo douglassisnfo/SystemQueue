@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -13,7 +12,6 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.douglaz.system.model.enums.Status;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Address {
@@ -124,4 +122,75 @@ public class Address {
 	public void setStatus(Status status) {
 		this.status = status;
 	}	
+	
+	
+	public Address() {}
+
+	public Address(Builder builder) {
+			
+		this.zipcode = builder.zipcode;
+		this.street = builder.street;
+		this.neighborhood = builder.neighborhood;
+		this.number = builder.number;
+		this.city = builder.city;
+		this.state = builder.state;	
+		this.complement = builder.complement;
+		this.status = builder.status;
+	}
+	
+	public static class Builder{
+		
+		private String zipcode;
+		private String street;
+		private String neighborhood;
+		private int number;
+		private String city;
+		private String state;	
+		private String complement;
+		private Status status;
+		
+		public Builder wZipCode(String zipcode) {
+			this.zipcode=zipcode;
+			return this;
+		}
+		
+		public Builder wSteet(String street) {
+			this.street=street;
+			return this;
+		}
+		
+		public Builder wNeighborhood(String neighborhood) {
+			this.neighborhood=neighborhood;
+			return this;
+		}
+		
+		public Builder wRegister(int number) {
+			this.number=number;
+			return this;
+		}
+		
+		public Builder wCity(String city) {
+			this.city=city;
+			return this;
+		}
+		
+		public Builder wState(String state) {
+			this.state=state;
+			return this;
+		}
+		
+		public Builder wComplement(String complement) {
+			this.complement=complement;
+			return this;
+		}
+		
+		public Builder wStatus(Status status) {
+			this.status=status;
+			return this;
+		}
+		
+		public Address build() {
+			return new Address(this);
+		}
+	}
 }

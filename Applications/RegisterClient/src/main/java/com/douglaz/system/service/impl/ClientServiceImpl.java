@@ -5,9 +5,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.douglaz.system.dto.ClientSave;
 import com.douglaz.system.dto.ClientWithAddress;
+import com.douglaz.system.dto.MessageReturn;
 import com.douglaz.system.model.Client;
 import com.douglaz.system.repository.AddressRepository;
 import com.douglaz.system.repository.ClientRepository;
@@ -37,6 +41,24 @@ public class ClientServiceImpl implements ClientService {
 			return clientWithAddress;
 		}
 		
+		return null;
+	}
+	
+	/**
+	 * check email exists
+	 * set registerDate
+	 * set status as inactive
+	 * set lastUpdate equal registerDate
+	 * save client
+	 * send message activation
+	 */
+	@Override
+	public ResponseEntity saveClient(ClientSave clientSave) {
+		if(ClientRepository.findByEmail(clientSave.getEmail()).isPresent()) {
+			return ResponseEntity
+		            .status(HttpStatus.CONFLICT)
+		            .body("Email já existe na base");
+		}
 		return null;
 	}
 	

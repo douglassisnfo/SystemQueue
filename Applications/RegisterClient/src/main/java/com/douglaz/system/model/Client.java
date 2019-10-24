@@ -1,6 +1,7 @@
 package com.douglaz.system.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -115,5 +116,58 @@ public class Client {
 	public void setLastUpdate(LocalDate lastUpdate) {
 		this.lastUpdate = lastUpdate;
 	}
-
+	
+	
+	 public Client(Builder builder) {
+		this.name = builder.name;
+		this.password = builder.password;
+		this.email = builder.email;
+		this.status  = builder.status;
+		this.register  = builder.register;
+		this.lastUpdate  = builder.lastUpdate;
+	}
+	
+	public static class Builder{
+		
+		private String name;
+		private String password;
+		private String email;
+		private Status status;
+		private LocalDate register;
+		private LocalDate lastUpdate;
+		
+		public Builder wName(String name) {
+			this.name=name;
+			return this;
+		}
+		
+		public Builder wPassword(String password) {
+			this.password=password;
+			return this;
+		}
+		
+		public Builder wEmail(String email) {
+			this.email=email;
+			return this;
+		}
+		
+		public Builder wStatus(Status status) {
+			this.status=status;
+			return this;
+		}
+		
+		public Builder wRegister(LocalDate register) {
+			this.register=register;
+			return this;
+		}
+		
+		public Builder wLastUpdate(LocalDate lastUpdate) {
+			this.lastUpdate=lastUpdate;
+			return this;
+		}
+		
+		public Client build() {
+			return new Client(this);
+		}
+	}
 }
