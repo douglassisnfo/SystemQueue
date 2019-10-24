@@ -136,6 +136,7 @@ public class Address {
 		this.state = builder.state;	
 		this.complement = builder.complement;
 		this.status = builder.status;
+		this.client = builder.client;
 	}
 	
 	public static class Builder{
@@ -148,13 +149,14 @@ public class Address {
 		private String state;	
 		private String complement;
 		private Status status;
+		private Client client;
 		
 		public Builder wZipCode(String zipcode) {
 			this.zipcode=zipcode;
 			return this;
 		}
 		
-		public Builder wSteet(String street) {
+		public Builder wStreet(String street) {
 			this.street=street;
 			return this;
 		}
@@ -164,7 +166,7 @@ public class Address {
 			return this;
 		}
 		
-		public Builder wRegister(int number) {
+		public Builder wNumber(int number) {
 			this.number=number;
 			return this;
 		}
@@ -186,6 +188,11 @@ public class Address {
 		
 		public Builder wStatus(Status status) {
 			this.status=status;
+			return this;
+		}
+		
+		public Builder wClient(Client client) {
+			this.client=client;
 			return this;
 		}
 		

@@ -124,6 +124,16 @@ public class ClientServiceTest {
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CONFLICT);
 	} 
 	
-	
+	@Test
+	public void saveClient() {
+		
+		Mockito.when(clientRepository.findByEmail(Mockito.any(String.class))).thenReturn(Optional.empty());
+		Mockito.when(clientRepository.save(Mockito.any(Client.class))).thenReturn(createClient());
+		Mockito.when(addressRepository.save(Mockito.any(Address.class))).thenReturn(createAddress());
+		
+		ResponseEntity responseEntity = clientService.saveClient(createClientSave());
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+		
+	}
 
 }
